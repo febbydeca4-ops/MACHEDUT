@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MACHEDU | Matematika Kelas 12</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at top, #02162e, #000814);
+  color: #f0f0f0;
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* background simbol matematika */
+.bg-symbols {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.symbol {
+  position: absolute;
+  color: rgba(0,180,255,0.15);
+  font-size: 2rem;
+  animation: float 6s infinite ease-in-out alternate;
+}
+@keyframes float {
+  from { transform: translateY(0px); opacity: 0.2; }
+  to { transform: translateY(-20px); opacity: 0.6; }
+}
+
+/* tombol musik */
+#musicBtn {
+  position: absolute;
+  top: 10px; right: 10px;
+  background: #003366;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 15px;
+  cursor: pointer;
+  z-index: 3;
+  box-shadow: 0 0 10px #00b4ff;
+}
+
+/* header */
+header {
+  text-align: center;
+  padding: 20px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #00b4ff;
+  text-shadow: 0 0 15px #00b4ff;
+  z-index: 2;
+  position: relative;
+}
+
+/* kontainer utama */
+.container {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 900px;
+  text-align: center;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+.container.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* menu utama */
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.menu button {
+  width: 80%;
+  max-width: 400px;
+  background: linear-gradient(135deg, #003366, #00b4ff);
+  color: white;
+  font-size: 20px;
+  padding: 20px 25px;
+  border: none;
+  border-radius: 14px;
+  box-shadow: 0 0 15px #00b4ff;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.menu button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px #00e5ff;
+}
+
+/* konten halaman */
+.page-content {
+  background: rgba(255,255,255,0.05);
+  padding: 25px;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  max-height: 60vh;
+  overflow-y: auto;
+  text-align: left;
+}
+
+/* gambar dalam materi */
+.materi-image {
+  text-align: center;
+  margin: 20px 0;
+}
+.materi-image img {
+  width: 80%;
+  max-width: 500px;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0, 180, 255, 0.5);
+  border: 2px solid rgba(0,180,255,0.3);
+}
+.materi-image .caption {
+  font-size: 14px;
+  color: #aee6ff;
+  font-style: italic;
+  margin-top: 8px;
+}
+
+/* tombol kembali */
+.container button {
+  margin-top: 15px;
+  background: #003366;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  box-shadow: 0 0 10px #00b4ff;
+}
+
+/* footer */
+footer {
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+  font-size: 13px;
+  color: #00b4ff;
+  z-index: 2;
+}
+footer a {
+  color: #00e5ff;
+  text-decoration: none;
+  margin-left: 10px;
+}
+footer a:hover {
+  text-decoration: underline;
+}
+
+.result {
+  color: #00e5ff;
+  font-size: 22px;
+  margin-top: 20px;
+  text-shadow: 0 0 10px #00b4ff;
+}
+</style>
+</head>
+<body>
+
+<!-- background simbol -->
+<div class="bg-symbols" id="symbolContainer"></div>
+
+<!-- tombol musik -->
+<button id="musicBtn">🔊 Musik</button>
+
+<header>📘 MACHEDUCT</header>
+
+<!-- HALAMAN HOME -->
+<div class="container active" id="home">
+  <div class="menu">
+    <button onclick="showPage('materi')">📘 Materi</button>
+    <button onclick="showPage('latihan')">🎥 Video Materi</button>
+    <button onclick="showPage('kuis')">🎯 Kuis</button>
+  </div>
+</div>
+
+<!-- HALAMAN MATERI -->
+<div class="container" id="materi">
+  <div class="page-content">
+    <h2>📘 Materi Percobaan, Ruang Sampel dan Kejadian</h2>
+    <p><strong>Percobaan</strong> adalah suatu proses yang hasilnya bergantung pada kesempatan. Ketika percobaan diulangi, hasil tidak selalu sama walaupun kondisi sama. Ini disebut <em>Percobaan Acak</em>.</p>
+    <p><strong>Ruang Sampel</strong> adalah himpunan semua hasil yang mungkin dari suatu percobaan. Dinotasikan dengan <b>S</b>.</p>
+    <p><strong>Kejadian</strong> adalah himpunan bagian dari ruang sampel, dilambangkan huruf kapital seperti A, B, C, ...</p>
+
+    <!-- Tambahan gambar materi -->
+    <div class="materi-image">
+      <img src="gambar1.jpg" alt="Contoh ruang sampel" />
+      <p class="caption">Gambar 1. Ilustrasi ruang sampel pada pelemparan dua dadu.</p>
+    </div>
+
+    <p>Misalnya, pada percobaan melempar dua dadu, ruang sampelnya terdiri dari 36 pasangan bilangan seperti (1,1), (1,2), ..., (6,6).</p>
+  </div>
+  <button onclick="showPage('home')">⬅ Kembali</button>
+</div>
+
+<!-- HALAMAN VIDEO -->
+<div class="container" id="latihan">
+  <div class="page-content">
+    <h2>🎥 Video Materi</h2>
+    <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:12px; box-shadow:0 0 20px #00b4ff;">
+      <iframe src="https://www.youtube.com/embed/mI8c8PWKioY"
+        frameborder="0"
+        allowfullscreen
+        style="position:absolute; top:0; left:0; width:100%; height:100%; border-radius:12px;">
+      </iframe>
+    </div>
+  </div>
+  <button onclick="showPage('home')">⬅ Kembali</button>
+</div>
+
+<!-- HALAMAN KUIS -->
+<div class="container" id="kuis">
+  <div class="page-content" id="quizForm">
+    <h2>🎯 Kuis Peluang (10 Soal)</h2>
+    <p>Setiap jawaban benar bernilai 10 poin.</p>
+    <ol id="questionList"></ol>
+  </div>
+  <button onclick="submitQuiz()">✅ Lihat Hasil</button>
+  <button onclick="showPage('home')">⬅ Kembali</button>
+</div>
+
+<!-- HALAMAN HASIL -->
+<div class="container" id="hasil">
+  <div class="page-content" id="hasilContent"></div>
+  <button onclick="showPage('home')">⬅ Kembali ke Beranda</button>
+</div>
+
+<!-- HALAMAN TENTANG -->
+<div class="container" id="tentang">
+  <div class="page-content">
+    <h2>👥 Tentang Kami</h2>
+
+    <p>
+      Selamat datang di <strong>Media Pembelajaran Matematika Digital SMK PGRI PLOSO</strong> — sebuah
+      inisiatif pengembangan media pembelajaran interaktif yang dirancang khusus untuk siswa
+      <em>Kelas XII</em>. Aplikasi ini dikembangkan dalam rangka memenuhi tugas 
+      <strong>Desain Media Interaktif (DMI)</strong> serta sebagai upaya nyata menerapkan prinsip
+      pembelajaran modern yang menggabungkan teknologi, visualisasi, dan interaksi untuk memperkuat
+      pemahaman konsep matematika.
+    </p>
+
+    <h3>Visi</h3>
+    <p>
+      Menjadi sarana pembelajaran digital yang inovatif dan mudah diakses untuk membantu siswa
+      memahami matematika secara mendalam, kritis, dan kreatif.
+    </p>
+
+    <h3>Misi</h3>
+    <ul>
+      <li>Menyediakan materi pembelajaran yang terstruktur, jelas, dan mudah dipahami.</li>
+      <li>Mendorong pembelajaran aktif melalui video, latihan, dan kuis interaktif.</li>
+      <li>Menciptakan tampilan antarmuka yang ramah pengguna (user-friendly) dan responsif di berbagai perangkat.</li>
+      <li>Mengintegrasikan umpan balik (feedback) cepat untuk membantu siswa mengidentifikasi area yang perlu ditingkatkan.</li>
+    </ul>
+
+    <h3>Fitur Utama</h3>
+    <ul>
+      <li><strong>Video Materi</strong>. Penjelasan bertahap dan visual untuk memperjelas konsep.</li>
+      <li><strong>Kuis Interaktif</strong>. Latihan berformat pilihan ganda dengan penilaian otomatis.</li>
+      <li><strong>Musik Latar Edukatif</strong>.Membantu menciptakan suasana belajar yang kondusif.</li>
+      <li><strong>Desain Responsif</strong>.Dapat digunakan pada laptop, tablet, maupun ponsel.</li>
+    </ul>
+
+    <h3>Metodologi Pengembangan</h3>
+    <p>
+      Pengembangan media ini mengikuti langkah-langkah DMI: analisis kebutuhan, desain konten,
+      pembuatan prototipe, pengujian, dan revisi. Kami melibatkan guru mata pelajaran dan
+      perwakilan siswa untuk memastikan materi relevan, mudah dipahami, dan sesuai kurikulum.
+    </p>
+
+    <h3>Harapan dan Evaluasi</h3>
+    <p>
+      Kami berharap media ini dapat menjadi sarana penunjang pembelajaran yang mendukung capaian
+      kompetensi peserta didik. Sebagai bagian dari tugas DMI, media ini juga terbuka untuk
+      masukan dan evaluasi dari guru serta pengguna agar terus disempurnakan.
+    </p>
+
+    <h3>ANGOTA TIM</h3>
+    <p>SILVIA META SARI
+    <br>FEBBY DECA P
+    <br>DESI WULANDARI
+    <br>REFIEL PRASETYO
+    <br>ALVIN RAMADHANI
+    </p>
+
+    <h3>0851-3565-9209</h3>
+    <p>
+      Untuk laporan, saran, atau evaluasi, silakan hubungi kami: <br>
+      <a href="mailto:MACHEDUCT@GMAIL.COM">MACHEDUCT@GMAIL.COM</a>
+    </p>
+
+    <hr style="border-color: rgba(0,180,255,0.12);">
+
+    <p style="font-style:italic; color:#d6f4ff;">
+      "Melalui desain media yang interaktif dan inklusif, kami percaya proses belajar matematika bisa
+      menjadi pengalaman yang menyenangkan dan berdampak." — Tim MACHEDUCT
+    </p>
+  </div>
+
+  <button onclick="showPage('home')">⬅ Kembali</button>
+</div>
+
+<footer>
+  Matematika Digital | SMK PGRI PLOSO 
+  <a href="#" onclick="showPage('tentang')">| Tentang Kami</a>
+</footer>
+
+<!-- musik -->
+<audio id="bgMusic" loop>
+  <source src="website.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* NAVIGATION */
+let pages = document.querySelectorAll('.container');
+function showPage(id){
+  pages.forEach(p => p.classList.remove('active'));
+  setTimeout(()=>{
+    document.getElementById(id).classList.add('active');
+    const pc = document.querySelector('#'+id+' .page-content');
+    if(pc) pc.scrollTop = 0;
+  },200);
+}
+
+/* MUSIC BUTTON */
+let music = document.getElementById('bgMusic');
+let musicBtn = document.getElementById('musicBtn');
+let playing = false;
+musicBtn.onclick = function(){
+  if(!playing){
+    music.play().catch(()=>{});
+    musicBtn.textContent = '🔈 Matikan Musik';
+    playing = true;
+  } else {
+    music.pause();
+    musicBtn.textContent = '🔊 Musik';
+    playing = false;
+  }
+};
+
+/* KUIS */
+let questions = [
+{q:"Dua dadu bersisi enam dilempar undi bersama-sama satu kali. Peluang muncul jumlah kedua mata dadu sama dengan 8 atau berselisih 2 adalah?",options:["6/36","10/36","11/36","12/36","13/36"],answer:"C"},
+{q:"Dari 36 siswa di sebuah kelas, 20 siswa suka olahraga renang, 15 siswa suka olahraga basket, dan 10 siswa tidak suka kedua-duanya. Bila dipilih seorang siswa secara acak, peluang terpilih siswa yang suka kedua jenis olahraga tersebut adalah?",options:["1/4","9/26","5/18","1/5","1/9"],answer:"A"},
+{q:"Dua buah dadu dilempar undi secara bersamaan sebanyak satu kali. Peluang kejadian muncul jumlah mata dadu 9?",options:["1/2","1/4","1/6","1/8","1/9"],answer:"E"},
+{q:"Dari seperangkat kartu bridge diambil satu kartu sekaligus secara acak. Peluang yang terambil kartu King adalah?",options:["1/221","1/13","4/221","11/221","8/663"],answer:"B"},
+{q:"Pada percobaan lempar undi dua buah dadu, peluang muncul kedua mata dadu,peluang muncul kedia mata dadu berjumlah kurang dari 7 adalah?",options:["1/9","1/2","15/36","2/3","10/12"],answer:"C"},
+{q:"Tiga buah uang logam dilempar bersama-sama sebanyak 16 kali. Harapan muncul tiga-tiganya angka adalah?",options:["1","2","3","4","5"],answer:"B"},
+{q:"Pada percobaan lempar undi dua buah dadu sekaligus sebanyak 72 kali, harapan muncul mata dadu berjumlah genap adalah?",options:["18","30","32","34","36"],answer:"E"},
+{q:"Seorang ibu hamil untuk ketiga kalinya, peluang dia melahirkan bayi perempuan adalah?",options:["1/2","1/3","3/2","3/4","4/5"],answer:"A"},
+{q:"Sebuah keranjang berisi 2 lusin telur ayam yang 4 diantaranya busuk. Inda mengambil satu telur. Peluang telur yang terambil Inda adalah telur yang tidak busuk adalah?",options:["1/2","1/5","1/6","5/6","6/5"],answer:"D"},
+{q:"Dalam pelemparan dadu, peluang muncul angka kurang dari 4 adalah?",options:["1/2","1/3","2/3","1/4","1/6"],answer:"C"},
+];
+
+const questionList = document.getElementById('questionList');
+questions.forEach((q,i)=>{
+  const li = document.createElement('li');
+  li.innerHTML = `<p>${q.q}</p>` +
+    q.options.map((opt,idx)=>
+      `<label><input type="radio" name="q${i}" value="${String.fromCharCode(65+idx)}"> ${opt}</label><br>`
+    ).join('');
+  questionList.appendChild(li);
+});
+
+function submitQuiz(){
+  let score = 0;
+  questions.forEach((q,i)=>{
+    const sel = document.querySelector('input[name="q'+i+'"]:checked');
+    if(sel && sel.value === q.answer) score += 10;
+  });
+  let hasil = document.getElementById('hasilContent');
+  let ket = "";
+  if(score >= 80) ket = "Sangat Baik";
+  else if(score >= 60) ket = "Baik";
+  else if(score >= 40) ket = "Cukup";
+  else ket = "Perlu Belajar Lagi";
+  hasil.innerHTML = `<div class="result">🎉 Nilai kamu: ${score}/100<br>${ket}</div>`;
+  showPage('hasil');
+}
+
+/* simbol latar */
+const symbols = ['π','√','∑','∞','÷','+','−','×','≈','÷','1'];
+const symbolContainer = document.getElementById('symbolContainer');
+for(let i=0;i<70;i++){
+  const span = document.createElement('span');
+  span.classList.add('symbol');
+  span.innerText = symbols[Math.floor(Math.random()*symbols.length)];
+  span.style.left = Math.random()*100 + '%';
+  span.style.top = Math.random()*100 + '%';
+  span.style.fontSize = (Math.random()*20 + 14) + 'px';
+  span.style.animationDuration = (Math.random()*5 + 3) + 's';
+  span.style.animationDelay = (Math.random()*5) + 's';
+  symbolContainer.appendChild(span);
+}
+</script>
+</body>
+</html>
